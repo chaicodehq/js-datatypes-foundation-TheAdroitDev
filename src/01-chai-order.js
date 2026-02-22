@@ -47,20 +47,59 @@
  */
 export function getChaiOrderLength(order) {
   // Your code here
+  if (typeof order === "string") {
+    return order.trim().length
+  }
+  else return -1
+
 }
 
 export function shoutChaiOrder(order) {
   // Your code here
+
+  if (typeof order !== "string") return ""
+  let trimmed = order.trim()
+
+  if (trimmed.length === 0) return ""
+
+  return trimmed.toUpperCase()
 }
 
 export function whisperChaiOrder(order) {
   // Your code here
+
+  if (typeof order !== "string") return ""
+  let trimmed = order.trim()
+
+  if (trimmed.length === 0) return ""
+
+  return trimmed.toLowerCase()
 }
 
 export function hasSpecialIngredient(order, ingredient) {
   // Your code here
+  if (typeof order === "string" && typeof ingredient === "string") {
+    return order.toLowerCase().includes(ingredient.toLowerCase());
+  }
+  else {
+    return false
+  }
 }
 
 export function getFirstAndLastChar(order) {
   // Your code here
+
+  if (typeof order !== "string") return null;
+
+  let trimmed = order.trim()
+
+  if (trimmed.length === 0) return null;
+
+  const first = trimmed.charAt(0);
+  const last = trimmed.at(-1);
+
+  return {
+    first,
+    last,
+  }
 }

@@ -54,12 +54,46 @@
  */
 export function createThaliDescription(thali) {
   // Your code here
+  if (thali === null || typeof thali !== "object" || Array.isArray(thali) || typeof thali.name !== "string" || !Array.isArray(thali.items) || typeof thali.price !== "number" || typeof thali.isVeg !== "boolean"
+  ) return "";
+
+  return `${thali.name.toUpperCase()} (${thali.isVeg ? "Veg" : "Non-Veg"}) - Items: ${thali.items.join(", ")} - Rs.${thali.price.toFixed(2)}`
+
 }
 
 export function getThaliStats(thalis) {
   // Your code here
-}
+  if (!Array.isArray(thalis) || thalis.length === 0) return null;
 
+  /*  .filter() se veg/non-veg count
+  *      - .reduce() se average price
+  *      - Math.min/Math.max se cheapest/costliest
+  *      - .map() se saare names
+  *      - Return: { totalThalis, vegCount, nonVegCount, avgPrice (2 decimal string),
+  *                  cheapest (number), costliest (number), names (array) }
+ }
+  */
+
+  const totalThalis = thalis.length;
+  const vegCount = thalis.filter(t => t.isVeg).length
+  const nonVegCount = thalis.filter(t => !t.isVeg).length
+  const totalPrice = thalis.reduce((sum, t) => sum + t.price, 0)
+  const avgPrice = (totalPrice / totalThalis).toFixed(2);
+  const prices = thalis.map(t => t.price);
+  const cheapest = Math.min(...prices)
+  const costliest = Math.max(...prices)
+  const names = thalis.map(t => t.name);
+
+  return {
+    totalThalis,
+    vegCount,
+    nonVegCount,
+    avgPrice,
+    cheapest,
+    costliest,
+    names
+  };
+}
 export function searchThaliMenu(thalis, query) {
   // Your code here
 }

@@ -53,20 +53,57 @@
  */
 export function writePostcard(sender, receiver, message) {
   // Your code here
+  if (typeof sender !== "string" || typeof receiver !== "string" || typeof message !== "string") return ""
+
+  if (sender.trim().length === 0 || receiver.trim().length === 0 || message.trim().length === 0) return ""
+
+  return `Priy ${receiver},\n\n${message}\n\nAapka/Aapki,\n${sender}`
 }
 
 export function isValidPincode(code) {
   // Your code here
+  if (typeof code !== "string") return false;
+
+  return (!code.startsWith("0") && code.length === 6 && /^\d+$/.test(code));
 }
 
 export function formatPostcardField(label, value, width) {
   // Your code here
+  // Agar label ya value string nahi hai, return ""
+  if (typeof label !== "string" || typeof value !== "string") return "";
+  //   label.padEnd(width) + ": " + value — for aligned fields
+  //  *      - Wait, let me simplify: return label.padEnd(12) + ": " + value
+  //  *      - Agar width provided, use that instead of 12
+  if (width) {
+    return label.padEnd(width) + ": " + value
+  }
+  else {
+    return label.padEnd(12) + ": " + value
+  }
 }
 
 export function isFromState(address, stateCode) {
   // Your code here
+  // Agar address ya stateCode string nahi hai, return false
+  if (typeof address !== "string" || typeof stateCode !== "string" || stateCode.length !== 2) {
+    return false;
+  }
+
+  return address.endsWith(stateCode);
 }
 
 export function countVowels(message) {
   // Your code here
+  /*  - .match(/[aeiouAEIOU]/g) se saare vowels dhundho
+ *      - Return: count (match result ki length, ya 0 agar null hai)
+ *      - Agar message string nahi hai, return 0
+ *  */
+
+  if (typeof message !== "string") {
+    return 0
+  }
+
+  let vowelsCount = message.match(/[aeiouAEIOU]/g);
+
+  return vowelsCount ? vowelsCount.length : 0
 }
